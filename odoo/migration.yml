@@ -1,0 +1,18 @@
+migration:
+  options:
+    install_command: odoo
+    install_args: --log-level=debug
+    backup:
+      command:
+        echo "Backup......."
+      stop_on_failure: true
+  versions:
+    - version: setup
+      backup: false
+      operations:
+        post:
+          - echo "Hola Mundo"
+          - anthem songs.setup::main
+      addons:
+        upgrade:
+          - attachment_s3

@@ -1,0 +1,36 @@
+version: "2"
+services:
+  web:
+    image: jorgejuareznet/odoo:14.0-latest
+    build:
+      context: odoo
+      dockerfile: Dockerfile
+    environment:
+      - ODOO_DB_HOST=db
+      - ODOO_DB_USER=odoo
+      - ODOO_DB_PASSWORD=odoo
+      - ODOO_DB_PORT=5432
+      - ODOO_SERVER_WIDE_MODULES=web,attachment_s3
+      - DB_NAME=demo
+      - MARABUNTA_FORCE_VERSION=setup
+    depends_on:
+      - db
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+    ports:
+      - "8069:8069"
+  db:
+    image: debezium/postgres:10
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+
+volumes:
+  odoo-web-data:
+  odoo-db-data:
