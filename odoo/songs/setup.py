@@ -8,7 +8,7 @@ def setup_attachmnts_db(ctx):
     """Set Attachments DB Rules"""
     ctx.env["ir.config_parameter"].set_param(
         "ir_attachment.storage.force.database",
-        "{\"image/\": 0, \"application/javascript\": 0, \"text/css\": 0}"
+        "{\"image/\": 51200, \"application/javascript\": 0, \"text/css\": 0}"
     )
 
     ctx.env["ir.config_parameter"].set_param(
